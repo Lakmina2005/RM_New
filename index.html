@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI HUB 2026</title>
+    <title>@Lakmina2005</title>
     <style>
         :root {
             --neon-blue: #00f2ff;
@@ -38,24 +38,10 @@
             text-transform: uppercase;
         }
 
-        /* පාවෙන Animations */
-        @keyframes floatLeft {
-            0%, 100% { transform: translate(0px, 0px); }
-            50% { transform: translate(-8px, -12px); }
-        }
+        @keyframes floatLeft { 0%, 100% { transform: translate(0px, 0px); } 50% { transform: translate(-8px, -12px); } }
+        @keyframes floatRight { 0%, 100% { transform: translate(8px, -12px); } 50% { transform: translate(0px, 0px); } }
 
-        @keyframes floatRight {
-            0%, 100% { transform: translate(8px, -12px); }
-            50% { transform: translate(0px, 0px); }
-        }
-
-        .content-wrapper {
-            width: 100%;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+        .content-wrapper { width: 100%; max-width: 400px; display: flex; flex-direction: column; align-items: center; }
 
         h2 {
             color: var(--neon-blue);
@@ -97,7 +83,6 @@
             z-index: 1;
         }
 
-        /* Progress Bar Styles */
         .progress-container {
             background: #21262d;
             height: 25px;
@@ -120,78 +105,60 @@
         }
 
         #percentText {
-            position: absolute;
-            width: 100%;
-            text-align: center;
-            font-size: 0.75em;
-            font-weight: bold;
-            color: #fff;
-            text-shadow: 0 0 5px #000;
-            z-index: 2;
+            position: absolute; width: 100%; text-align: center; font-size: 0.75em;
+            font-weight: bold; color: #fff; text-shadow: 0 0 5px #000; z-index: 2;
         }
-
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
-            animation: lightMove 2.5s infinite linear;
-        }
-
-        @keyframes lightMove { 100% { left: 100%; } }
 
         table { width: 100%; border-collapse: collapse; }
         th { color: var(--neon-blue); border-bottom: 1px solid rgba(0,242,255,0.3); padding: 10px; }
         td { padding: 10px; text-align: center; font-size: 1.1em; }
 
-        /* Quick Contacts Styling */
         .contact-item {
             background: rgba(255,255,255,0.05);
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            margin: 10px 0; padding: 15px; border-radius: 10px;
+            display: flex; justify-content: space-between; align-items: center;
             border-left: 3px solid var(--neon-blue);
         }
 
-        .item-left { animation: floatLeft 4s ease-in-out infinite; }
-        .item-right { animation: floatRight 4.5s ease-in-out infinite; }
-
         .btn-msg {
             background: var(--neon-blue);
-            color: #000;
-            padding: 8px 15px;
-            border-radius: 5px;
-            font-weight: bold;
-            text-decoration: none;
-            font-size: 0.75em;
-            box-shadow: 0 0 10px var(--neon-blue);
-            transition: 0.3s;
+            color: #000; padding: 8px 15px; border-radius: 5px;
+            font-weight: bold; text-decoration: none; font-size: 0.75em;
+            box-shadow: 0 0 10px var(--neon-blue); transition: 0.3s;
+            cursor: pointer; border: none;
         }
 
-        .btn-msg:hover { transform: scale(1.1); box-shadow: 0 0 20px var(--neon-blue); }
+        .modal {
+            display: none; position: fixed; z-index: 100; left: 0; top: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.9);
+            justify-content: center; align-items: center;
+        }
+
+        .modal-content {
+            background: var(--card-bg); padding: 25px; border-radius: 15px;
+            border: 1px solid var(--neon-blue); width: 80%; max-width: 300px;
+            text-align: center; box-shadow: 0 0 30px var(--neon-blue);
+        }
+
+        .modal input {
+            width: 90%; padding: 12px; margin: 10px 0; background: #0d1117;
+            border: 1px solid var(--neon-blue); color: white; border-radius: 8px;
+            outline: none; text-align: center;
+        }
     </style>
 </head>
 <body>
 
     <div class="date-container">
-        <div class="update-badge">
-            LAST UPDATED: <span id="fullUpdate">...</span>
-        </div>
+        <div class="update-badge">LAST UPDATED: <span id="fullUpdate">...</span></div>
     </div>
 
     <div class="content-wrapper">
-        
         <h2>Quantity of pieces</h2>
         <div class="neon-card">
             <div class="card-content">
                 <table>
-                    <thead>
-                        <tr><th>SIZE</th><th>PIECES</th></tr>
-                    </thead>
+                    <thead><tr><th>SIZE</th><th>PIECES</th></tr></thead>
                     <tbody>
                         <tr><td>XXS</td><td>___</td></tr>
                         <tr><td>XS</td><td>212</td></tr>
@@ -206,11 +173,10 @@
         </div>
 
         <h2>Production Status</h2>
-        <div class="neon-card" style="animation-delay: 0.5s;">
+        <div class="neon-card">
             <div class="card-content">
                 <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-bottom: 10px; font-weight: bold;">
-                    <span>Target</span>
-                    <span style="color: var(--neon-blue);">1060 Pcs</span>
+                    <span>Target</span><span style="color: var(--neon-blue);">1060 Pcs</span>
                 </div>
                 <div class="progress-container">
                     <div class="progress-fill" id="progressBar"></div>
@@ -225,54 +191,123 @@
         <h2>Quick Contacts</h2>
         <div class="neon-card">
             <div class="card-content">
-                <div class="contact-item item-left">
-                    <div style="text-align: left;">
-                        <strong>නදීරා👤</strong><br>
-                        <small style="color: var(--neon-blue);">Supervisor</small>
-                    </div>
-                    <a href="https://wa.me/94712186599?text=*👤Helo_Rm*%0A*🔎EPF* _%0A*🔖Neme* _" class="btn-msg">MESSAGE</a>
+                <div class="contact-item">
+                    <div style="text-align: left;"><strong>නදීරා👤</strong><br><small style="color: var(--neon-blue);">Supervisor</small></div>
+                    <button onclick="openMessageModal('94712186599')" class="btn-msg">MESSAGE</button>
                 </div>
 
-                <div class="contact-item item-right">
-                    <div style="text-align: left;">
-                        <strong>තනූජා👤</strong><br>
-                        <small style="color: #8b949e;">Mo</small>
-                    </div>
-                    <a href="https://wa.me/94775974277?text=*👤Helo_Rm*%0A*🔎EPF* _%0A*🔖Neme* _" class="btn-msg">MESSAGE</a>
+                <div class="contact-item">
+                    <div style="text-align: left;"><strong>තනූජා👤</strong><br><small style="color: #8b949e;">Mo</small></div>
+                    <button onclick="openMessageModal('94775974277')" class="btn-msg">MESSAGE</button>
                 </div>
 
-                <div class="contact-item item-left">
-                    <div style="text-align: left;">
-                        <strong>𝐑𝐌 𝐓𝐞𝐚𝐦 ②</strong><br>
-                        <small style="color: #8b949e;">🤟</small>
-                    </div>
-                    <a href="https://chat.whatsapp.com/Dmh1QSRBlA9GxZuxqj9du0" class="btn-msg">GROUP</a>
+                <div class="contact-item">
+                    <div style="text-align: left;"><strong>𝐑𝐌 𝐓𝐞𝐚𝐦 ②</strong><br><small style="color: #8b949e;">🤟</small></div>
+                    <button onclick="openGroupModal()" class="btn-msg">GROUP</button>
                 </div>
             </div>
         </div>
+    </div>
 
+    <div id="msgModal" class="modal">
+        <div class="modal-content">
+            <h3 style="color: var(--neon-blue); margin-top: 0;">Details Required</h3>
+            <input type="text" id="userName" placeholder="ඔබේ නම (සිංහලෙන් හෝ ඉංග්‍රීසියෙන්)">
+            <input type="number" id="userEpf" placeholder="EPF අංකය (ඉලක්කම් 4)">
+            <button onclick="sendWhatsApp()" class="btn-msg" style="width: 100%; margin-top: 10px;">SEND MESSAGE</button>
+            <button onclick="closeModal()" style="background:none; border:none; color:#8b949e; margin-top:15px; cursor:pointer;">Cancel</button>
+        </div>
+    </div>
+
+    <div id="groupModal" class="modal">
+        <div class="modal-content">
+            <h3 style="color: var(--neon-blue); margin-top: 0;">Security Check</h3>
+            <p style="font-size: 0.8em; color: #8b949e;">සමූහයට පිවිසීමට ඔබගේ EPF අංකය ඇතුළත් කරන්න</p>
+            <input type="number" id="groupEpf" placeholder="EPF අංකය (ඉලක්කම් 4)">
+            <button onclick="verifyGroupAccess()" class="btn-msg" style="width: 100%; margin-top: 10px;">ENTER GROUP</button>
+            <button onclick="closeModal()" style="background:none; border:none; color:#8b949e; margin-top:15px; cursor:pointer;">Cancel</button>
+        </div>
     </div>
 
 <script>
+    let currentNumber = "";
+    // අනුමත කරන ලද EPF අංක ලැයිස්තුව
+    const approvedEpf = ["2222", "3333", "6666"];
+
     function updateData() {
-        // --- අගය මෙතන වෙනස් කරන්න ---
         const target = 1060;
         const currentDone = 523; 
-        // -------------------------
-
         const percentage = Math.round((currentDone / target) * 100);
         document.getElementById("progressBar").style.width = percentage + "%";
         document.getElementById("percentText").innerText = percentage + "% Completed";
         document.getElementById("pcsLeft").innerText = (target - currentDone);
 
-        let modDate = new Date(document.lastModified);
-        const lankaTimeOptions = { timeZone: 'Asia/Colombo' };
-        const year = modDate.toLocaleString('en-US', { ...lankaTimeOptions, year: 'numeric' });
-        const month = modDate.toLocaleString('en-US', { ...lankaTimeOptions, month: 'short' });
-        const day = modDate.toLocaleString('en-US', { ...lankaTimeOptions, day: 'numeric' });
-        const time = modDate.toLocaleString('en-US', { ...lankaTimeOptions, hour: 'numeric', minute: 'numeric', hour12: true });
-        document.getElementById("fullUpdate").innerHTML = `${year} ${month} ${day}, ${time}`;
+        let now = new Date();
+        document.getElementById("fullUpdate").innerHTML = now.toLocaleString('en-US', { timeZone: 'Asia/Colombo', year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true });
     }
+
+    function openMessageModal(number) {
+        currentNumber = number;
+        document.getElementById("msgModal").style.display = "flex";
+    }
+
+    function openGroupModal() {
+        document.getElementById("groupModal").style.display = "flex";
+    }
+
+    function closeModal() {
+        document.getElementById("msgModal").style.display = "none";
+        document.getElementById("groupModal").style.display = "none";
+    }
+
+    // Security Check Functions
+    function isValidName(name) {
+        // සිංහල අකුරු හෝ සාමාන්‍ය ඉංග්‍රීසි අකුරු තියෙනවාදැයි පරීක්ෂා කරයි (අවම අකුරු 2ක්)
+        const nameRegex = /^[a-zA-Z\s\u0D80-\u0DFF]{2,50}$/;
+        return nameRegex.test(name);
+    }
+
+    function isValidEpf(epf) {
+        // ඉලක්කම් 4ක් පමණක් තිබේදැයි පරීක්ෂා කරයි
+        const epfRegex = /^\d{4}$/;
+        return epfRegex.test(epf);
+    }
+
+    function sendWhatsApp() {
+        const name = document.getElementById("userName").value.trim();
+        const epf = document.getElementById("userEpf").value.trim();
+
+        if (!isValidName(name)) {
+            alert("කරුණාකර නිවැරදි නමක් ඇතුළත් කරන්න (අකුරු පමණක් භාවිතා කරන්න).");
+            return;
+        }
+
+        if (!isValidEpf(epf)) {
+            alert("වැරදි EPF අංකයක්!.");
+            return;
+        }
+
+        const message = encodeURIComponent(`*Name: ${name}*\n*EPF: ${epf}*`);
+        window.open(`https://wa.me/${currentNumber}?text=${message}`, '_blank');
+        closeModal();
+    }
+
+    function verifyGroupAccess() {
+        const epf = document.getElementById("groupEpf").value.trim();
+
+        if (!isValidEpf(epf)) {
+            alert("කරුණාකර ඉලක්කම් 4ක EPF අංකයක් ඇතුළත් කරන්න.");
+            return;
+        }
+
+        if (approvedEpf.includes(epf)) {
+            window.open("https://chat.whatsapp.com/Dmh1QSRBlA9GxZuxqj9du0", '_blank');
+            closeModal();
+        } else {
+            alert("මෙම EPF අංකය අනුමත කර නැත! කරුණාකර නිවැරදි අංකය ඇතුළත් කරන්න.");
+        }
+    }
+
     updateData();
 </script>
 
