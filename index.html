@@ -232,11 +232,11 @@
 <script>
     let currentNumber = "";
     // අනුමත කරන ලද EPF අංක ලැයිස්තුව
-    const approvedEpf = ["2222", "3333", "6666"];
+    const approvedEpf = ["4273", "4888", "2976", "4599", "0593", "2645", "2745", "2586", "4828", "4669", "3395", "4586", "4608", "4762", "4836", "3321", "2599", "3319", "4746", "4741", "2562", "4627"];
 
     function updateData() {
         const target = 1060;
-        const currentDone = 523; 
+        const currentDone = 1059; 
         const percentage = Math.round((currentDone / target) * 100);
         document.getElementById("progressBar").style.width = percentage + "%";
         document.getElementById("percentText").innerText = percentage + "% Completed";
