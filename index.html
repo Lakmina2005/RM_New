@@ -3,312 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@Lakmina2005</title>
+    <title>EPF Verification</title>
     <style>
-        :root {
-            --neon-blue: #00f2ff;
-            --dark-bg: #0d1117;
-            --card-bg: #161b22;
-        }
-
-        body {
-            background-color: var(--dark-bg);
-            color: #e6edf3;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        .date-container { margin-bottom: 30px; text-align: center; }
-
-        .update-badge {
-            background: rgba(0, 242, 255, 0.1);
-            border: 1px solid var(--neon-blue);
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 0.85em;
-            color: var(--neon-blue);
-            box-shadow: 0 0 15px var(--neon-blue);
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        @keyframes floatLeft { 0%, 100% { transform: translate(0px, 0px); } 50% { transform: translate(-8px, -12px); } }
-        @keyframes floatRight { 0%, 100% { transform: translate(8px, -12px); } 50% { transform: translate(0px, 0px); } }
-
-        .content-wrapper { width: 100%; max-width: 400px; display: flex; flex-direction: column; align-items: center; }
-
-        h2 {
-            color: var(--neon-blue);
-            text-shadow: 0 0 10px var(--neon-blue);
-            font-size: 1.1em;
-            text-transform: uppercase;
-            margin: 20px 0 15px 0;
-            animation: floatLeft 4s ease-in-out infinite;
-        }
-
-        .neon-card {
-            position: relative;
-            background: var(--card-bg);
-            padding: 4px;
-            border-radius: 15px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
-            width: 100%;
-            animation: floatRight 5s ease-in-out infinite;
-        }
-
-        .neon-card::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: conic-gradient(var(--neon-blue), #0044ff, transparent, var(--neon-blue));
-            animation: rotate 3s linear infinite;
-        }
-
-        @keyframes rotate { 100% { transform: rotate(360deg); } }
-
-        .card-content {
-            position: relative;
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 15px;
-            z-index: 1;
-        }
-
-        .progress-container {
-            background: #21262d;
-            height: 25px;
-            border-radius: 15px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(0, 242, 255, 0.2);
-            display: flex;
-            align-items: center;
-        }
-
-        .progress-fill {
-            height: 100%;
-            width: 0%; 
-            background: linear-gradient(90deg, #001f5b 0%, #0044ff 50%, var(--neon-blue) 100%);
-            border-radius: 15px;
-            position: relative;
-            box-shadow: 0 0 15px var(--neon-blue);
-            transition: width 1s ease-in-out;
-        }
-
-        #percentText {
-            position: absolute; width: 100%; text-align: center; font-size: 0.75em;
-            font-weight: bold; color: #fff; text-shadow: 0 0 5px #000; z-index: 2;
-        }
-
-        table { width: 100%; border-collapse: collapse; }
-        th { color: var(--neon-blue); border-bottom: 1px solid rgba(0,242,255,0.3); padding: 10px; }
-        td { padding: 10px; text-align: center; font-size: 1.1em; }
-
-        .contact-item {
-            background: rgba(255,255,255,0.05);
-            margin: 10px 0; padding: 15px; border-radius: 10px;
-            display: flex; justify-content: space-between; align-items: center;
-            border-left: 3px solid var(--neon-blue);
-        }
-
-        .btn-msg {
-            background: var(--neon-blue);
-            color: #000; padding: 8px 15px; border-radius: 5px;
-            font-weight: bold; text-decoration: none; font-size: 0.75em;
-            box-shadow: 0 0 10px var(--neon-blue); transition: 0.3s;
-            cursor: pointer; border: none;
-        }
-
-        .modal {
-            display: none; position: fixed; z-index: 100; left: 0; top: 0;
-            width: 100%; height: 100%; background: rgba(0,0,0,0.9);
-            justify-content: center; align-items: center;
-        }
-
-        .modal-content {
-            background: var(--card-bg); padding: 25px; border-radius: 15px;
-            border: 1px solid var(--neon-blue); width: 80%; max-width: 300px;
-            text-align: center; box-shadow: 0 0 30px var(--neon-blue);
-        }
-
-        .modal input {
-            width: 90%; padding: 12px; margin: 10px 0; background: #0d1117;
-            border: 1px solid var(--neon-blue); color: white; border-radius: 8px;
-            outline: none; text-align: center;
-        }
+        body { font-family: sans-serif; background-color: #0f172a; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { background: #1e293b; padding: 25px; border-radius: 15px; box-shadow: 0 0 20px rgba(0,255,255,0.2); width: 350px; text-align: center; border: 1px solid #38bdf8; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; border-radius: 8px; border: none; background: #38bdf8; color: #0f172a; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #0ea5e9; box-shadow: 0 0 15px #38bdf8; }
+        
+        /* Signup කොටස මුලින්ම සඟවා තැබීම */
+        #signupSection { display: none; }
+        .error { color: #f87171; font-size: 14px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="date-container">
-        <div class="update-badge">LAST UPDATED: <span id="fullUpdate">...</span></div>
+<div class="container">
+    <div id="loginSection">
+        <h2 style="color: #38bdf8;">ඇතුල් වන්න</h2>
+        <p style="font-size: 14px; opacity: 0.8;">ඔබේ EPF අංකය ඇතුළත් කරන්න</p>
+        <input type="text" id="epfInput" placeholder="EPF අංකය">
+        <button onclick="checkEPF()">ඉදිරියට</button>
+        <p id="msg" class="error"></p>
     </div>
 
-    <div class="content-wrapper">
-        <h2>Quantity of pieces</h2>
-        <div class="neon-card">
-            <div class="card-content">
-                <table>
-                    <thead><tr><th>SIZE</th><th>PIECES</th></tr></thead>
-                    <tbody>
-                        <tr><td>XXS</td><td>___</td></tr>
-                        <tr><td>XS</td><td>86</td></tr>
-                        <tr><td>S</td><td>246</td></tr>
-                        <tr><td>M</td><td>376</td></tr>
-                        <tr><td>L</td><td>246</td></tr>
-                        <tr><td>XL</td><td>107</td></tr>
-                        <tr><td>XXL</td><td>___</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <h2>Production Status</h2>
-        <div class="neon-card">
-            <div class="card-content">
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-bottom: 10px; font-weight: bold;">
-                    <span>Target</span><span style="color: var(--neon-blue);">1061 Pcs</span>
-                </div>
-                <div class="progress-container">
-                    <div class="progress-fill" id="progressBar"></div>
-                    <div id="percentText">0% Completed</div>
-                </div>
-                <div style="text-align: center; margin-top: 10px; font-size: 0.85em; color: #8b949e;">
-                    සම්පූර්ණ වීමට තව <span id="pcsLeft" style="color: var(--neon-blue); font-weight: bold;">...</span> පීස් අවශ්‍යයි
-                </div>
-            </div>
-        </div>
-
-        <h2>Quick Contacts</h2>
-        <div class="neon-card">
-            <div class="card-content">
-                <div class="contact-item">
-                    <div style="text-align: left;"><strong>නදීරා👤</strong><br><small style="color: var(--neon-blue);">Supervisor</small></div>
-                    <button onclick="openMessageModal('94712186599')" class="btn-msg">MESSAGE</button>
-                </div>
-
-                <div class="contact-item">
-                    <div style="text-align: left;"><strong>තනූජා👤</strong><br><small style="color: #8b949e;">Mo</small></div>
-                    <button onclick="openMessageModal('94775974277')" class="btn-msg">MESSAGE</button>
-                </div>
-
-                <div class="contact-item">
-                    <div style="text-align: left;"><strong>𝐑𝐌 𝐓𝐞𝐚𝐦 ②</strong><br><small style="color: #8b949e;">🤟</small></div>
-                    <button onclick="openGroupModal()" class="btn-msg">GROUP</button>
-                </div>
-            </div>
-        </div>
+    <div id="signupSection">
+        <h3 style="color: #fbbf24;">ලියාපදිංචි වන්න</h3>
+        <p style="font-size: 13px;">සමාවන්න ඔබ අපහා ලියාපදිංචි වී නොමැත. කරුණාකර ඔබගේ නම ඇතුළත් කරන්න… ( පැය 24ක් ඇතුලත ඔබට පනිවිඩයක් එයි)</p>
+        <input type="text" id="newName" placeholder="ඔබේ නම">
+        <input type="text" id="newEpf" placeholder="EPF අංකය">
+        <button onclick="sendToWhatsApp()" style="background: #fbbf24;">විස්තර යවන්න</button>
+        <br><br>
+        <a href="#" onclick="location.reload()" style="color: #38bdf8; font-size: 12px; text-decoration: none;">නැවත උත්සාහ කරන්න</a>
     </div>
-
-    <div id="msgModal" class="modal">
-        <div class="modal-content">
-            <h3 style="color: var(--neon-blue); margin-top: 0;">Details Required</h3>
-            <input type="text" id="userName" placeholder="ඔබේ නම (සිංහලෙන් හෝ ඉංග්‍රීසියෙන්)">
-            <input type="number" id="userEpf" placeholder="EPF අංකය (ඉලක්කම් 4)">
-            <button onclick="sendWhatsApp()" class="btn-msg" style="width: 100%; margin-top: 10px;">SEND MESSAGE</button>
-            <button onclick="closeModal()" style="background:none; border:none; color:#8b949e; margin-top:15px; cursor:pointer;">Cancel</button>
-        </div>
-    </div>
-
-    <div id="groupModal" class="modal">
-        <div class="modal-content">
-            <h3 style="color: var(--neon-blue); margin-top: 0;">Security Check</h3>
-            <p style="font-size: 0.8em; color: #8b949e;">සමූහයට පිවිසීමට ඔබගේ EPF අංකය ඇතුළත් කරන්න</p>
-            <input type="number" id="groupEpf" placeholder="EPF අංකය (ඉලක්කම් 4)">
-            <button onclick="verifyGroupAccess()" class="btn-msg" style="width: 100%; margin-top: 10px;">ENTER GROUP</button>
-            <button onclick="closeModal()" style="background:none; border:none; color:#8b949e; margin-top:15px; cursor:pointer;">Cancel</button>
-        </div>
-    </div>
+</div>
 
 <script>
-    let currentNumber = "";
-    // අනුමත කරන ලද EPF අංක ලැයිස්තුව
-    const approvedEpf = ["4627", "4273", "4888", "2976", "4599", "0593", "2645", "2745", "2586", "4828", "4669", "3395", "4586", "4608", "4762", "4836", "3321", "2599", "3319", "4746", "4741", "2562", "4627"];
+    const validEPF = ["4627", "4273", "4888", "2976", "4599", "0593", "2645", "2745", "2586", "4828", "4669", "3395", "4586", "4608", "4762", "4836", "3321", "2599", "3319", "4746", "4741", "2562"];
 
-    function updateData() {
-        const target = 1061;
-        const currentDone = 360; 
-        const percentage = Math.round((currentDone / target) * 100);
-        document.getElementById("progressBar").style.width = percentage + "%";
-        document.getElementById("percentText").innerText = percentage + "% Completed";
-        document.getElementById("pcsLeft").innerText = (target - currentDone);
+    function checkEPF() {
+        let input = document.getElementById("epfInput").value.trim();
+        let loginSection = document.getElementById("loginSection");
+        let signupSection = document.getElementById("signupSection");
 
-        let now = new Date();
-        document.getElementById("fullUpdate").innerHTML = now.toLocaleString('en-US', { timeZone: 'Asia/Colombo', year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true });
-    }
-
-    function openMessageModal(number) {
-        currentNumber = number;
-        document.getElementById("msgModal").style.display = "flex";
-    }
-
-    function openGroupModal() {
-        document.getElementById("groupModal").style.display = "flex";
-    }
-
-    function closeModal() {
-        document.getElementById("msgModal").style.display = "none";
-        document.getElementById("groupModal").style.display = "none";
-    }
-
-    // Security Check Functions
-    function isValidName(name) {
-        // සිංහල අකුරු හෝ සාමාන්‍ය ඉංග්‍රීසි අකුරු තියෙනවාදැයි පරීක්ෂා කරයි (අවම අකුරු 2ක්)
-        const nameRegex = /^[a-zA-Z\s\u0D80-\u0DFF]{2,50}$/;
-        return nameRegex.test(name);
-    }
-
-    function isValidEpf(epf) {
-        // ඉලක්කම් 4ක් පමණක් තිබේදැයි පරීක්ෂා කරයි
-        const epfRegex = /^\d{4}$/;
-        return epfRegex.test(epf);
-    }
-
-    function sendWhatsApp() {
-        const name = document.getElementById("userName").value.trim();
-        const epf = document.getElementById("userEpf").value.trim();
-
-        if (!isValidName(name)) {
-            alert("කරුණාකර නිවැරදි නමක් ඇතුළත් කරන්න (අකුරු පමණක් භාවිතා කරන්න).");
-            return;
-        }
-
-        if (!isValidEpf(epf)) {
-            alert("වැරදි EPF අංකයක්!.");
-            return;
-        }
-
-        const message = encodeURIComponent(`*Name: ${name}*\n*EPF: ${epf}*`);
-        window.open(`https://wa.me/${currentNumber}?text=${message}`, '_blank');
-        closeModal();
-    }
-
-    function verifyGroupAccess() {
-        const epf = document.getElementById("groupEpf").value.trim();
-
-        if (!isValidEpf(epf)) {
-            alert("කරුණාකර ඉලක්කම් 4ක EPF අංකයක් ඇතුළත් කරන්න.");
-            return;
-        }
-
-        if (approvedEpf.includes(epf)) {
-            window.open("https://chat.whatsapp.com/Dmh1QSRBlA9GxZuxqj9du0", '_blank');
-            closeModal();
+        if (validEPF.includes(input)) {
+            // හරි නම් 1.html වෙත යයි
+            window.location.href = "1.html";
         } else {
-            alert("මෙම EPF අංකය අනුමත කර නැත! කරුණාකර නිවැරදි අංකය ඇතුළත් කරන්න.");
+            // වැරදි නම් ලොගින් කොටස සඟවා සයිනප් කොටස පෙන්වයි
+            loginSection.style.display = "none";
+            signupSection.style.display = "block";
+            document.getElementById("newEpf").value = input; // වැරදි අංකය auto-fill වෙයි
         }
     }
 
-    updateData();
+    function sendToWhatsApp() {
+        let name = document.getElementById("newName").value;
+        let epf = document.getElementById("newEpf").value;
+        let phone = "94788637885";
+
+        if (name === "" || epf === "") {
+            alert("කරුණාකර සියලු විස්තර පුරවන්න.");
+            return;
+        }
+
+        let message = `*_~RM Team 2~_ නව ලියාපදිංචියක්*:%0A*නම:* ${name}%0A*EPF අංකය:* ${epf}`;
+        let whatsappURL = `https://wa.me/${phone}?text=${message}`;
+
+        window.open(whatsappURL, '_blank');
+    }
 </script>
 
 </body>
