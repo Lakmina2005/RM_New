@@ -161,11 +161,11 @@
                     <thead><tr><th>SIZE</th><th>PIECES</th></tr></thead>
                     <tbody>
                         <tr><td>XXS</td><td>___</td></tr>
-                        <tr><td>XS</td><td>212</td></tr>
-                        <tr><td>S</td><td>212</td></tr>
-                        <tr><td>M</td><td>212</td></tr>
-                        <tr><td>L</td><td>212</td></tr>
-                        <tr><td>XL</td><td>212</td></tr>
+                        <tr><td>XS</td><td>86</td></tr>
+                        <tr><td>S</td><td>246</td></tr>
+                        <tr><td>M</td><td>376</td></tr>
+                        <tr><td>L</td><td>246</td></tr>
+                        <tr><td>XL</td><td>107</td></tr>
                         <tr><td>XXL</td><td>___</td></tr>
                     </tbody>
                 </table>
@@ -176,7 +176,7 @@
         <div class="neon-card">
             <div class="card-content">
                 <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-bottom: 10px; font-weight: bold;">
-                    <span>Target</span><span style="color: var(--neon-blue);">1060 Pcs</span>
+                    <span>Target</span><span style="color: var(--neon-blue);">1061 Pcs</span>
                 </div>
                 <div class="progress-container">
                     <div class="progress-fill" id="progressBar"></div>
@@ -235,8 +235,8 @@
     const approvedEpf = ["4627", "4273", "4888", "2976", "4599", "0593", "2645", "2745", "2586", "4828", "4669", "3395", "4586", "4608", "4762", "4836", "3321", "2599", "3319", "4746", "4741", "2562", "4627"];
 
     function updateData() {
-        const target = 1060;
-        const currentDone = 1055; 
+        const target = 1061;
+        const currentDone = 360; 
         const percentage = Math.round((currentDone / target) * 100);
         document.getElementById("progressBar").style.width = percentage + "%";
         document.getElementById("percentText").innerText = percentage + "% Completed";
