@@ -5,6 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@Lakmina2005</title>
     <style>
+        .style-info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+}
+
+.neon-text-blue {
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px var(--neon-blue), 0 0 20px rgba(0, 242, 255, 0.5);
+}
+
+.neon-text-white {
+    color: oklch(88.938% 0.13103 201.76);
+    text-shadow: 0 0 10px hsl(182, 89%, 47%), 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+        /* ලක්මිණගෙ ලින්ක් එක */
+/* Web Admin Button Style with Red & Blue Glow Animation */
+.admin-link {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    font-size: 0.75em;
+    color: #fff;
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-weight: bold;
+    z-index: 1000;
+    border: 2px solid transparent;
+    text-transform: uppercase;
+    animation: neonMultiGlow 3s linear infinite; /* වර්ණ මාරු වන ඇනිමේෂන් එක */
+    transition: 0.3s;
+}
+
+@keyframes neonMultiGlow {
+    0%, 100% {
+        background: rgba(0, 242, 255, 0.2);
+        border-color: #00f2ff;
+        box-shadow: 0 0 10px #00f2ff, 0 0 20px rgba(0, 242, 255, 0.5);
+        color: #00f2ff;
+    }
+    50% {
+        background: rgba(255, 0, 0, 0.2);
+        border-color: #ff0000;
+        box-shadow: 0 0 10px #ff0000, 0 0 20px rgba(255, 0, 0, 0.5);
+        color: #ff0000;
+    }
+}
+
+.admin-link:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.1);
+}
+ /* ලින්ක් එක ඉවරයි */
+
+
+
+
+
         :root {
             --neon-blue: #00f2ff;
             --dark-bg: #0d1117;
@@ -148,13 +214,19 @@
     </style>
 </head>
 <body>
+    <a href="https://lakmina348.github.io/-/" class="admin-link">Web Admin</a>
 
     <div class="date-container">
         <div class="update-badge">LAST UPDATED: <span id="fullUpdate">...</span></div>
     </div>
 
     <div class="content-wrapper">
-        <h2>Quantity of pieces</h2>
+        <div class="style-info">
+    <span>Style = <span class="neon-text-blue">TRW261PWOST</span></span>
+    <span>Color = <span class="neon-text-white">BLACK</span></span>
+</div>
+
+<h2>Quantity of pieces</h2>
         <div class="neon-card">
             <div class="card-content">
                 <table>
@@ -231,19 +303,27 @@
 
 <script>
     let currentNumber = "";
-    // අනුමත කරන ලද EPF අංක ලැයිස්තුව
     const approvedEpf = ["4627", "4273", "4888", "2976", "4599", "0593", "2645", "2745", "2586", "4828", "4669", "3395", "4586", "4608", "4762", "4836", "3321", "2599", "3319", "4746", "4741", "2562", "4627"];
 
     function updateData() {
         const target = 2574;
-        const currentDone = 120; 
+        const currentDone = 120; // ඔබ පීස් ගණන වෙනස් කරන්නේ මෙතැනින්
         const percentage = Math.round((currentDone / target) * 100);
         document.getElementById("progressBar").style.width = percentage + "%";
         document.getElementById("percentText").innerText = percentage + "% Completed";
         document.getElementById("pcsLeft").innerText = (target - currentDone);
 
-        let now = new Date();
-        document.getElementById("fullUpdate").innerHTML = now.toLocaleString('en-US', { timeZone: 'Asia/Colombo', year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true });
+        // ගොනුව අවසන් වරට වෙනස් කළ (Save කළ) දිනය සහ වේලාව ලබා ගැනීම
+        let lastMod = new Date(document.lastModified);
+        document.getElementById("fullUpdate").innerHTML = lastMod.toLocaleString('en-US', { 
+            timeZone: 'Asia/Colombo', 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric', 
+            hour: 'numeric', 
+            minute: 'numeric', 
+            hour12: true 
+        });
     }
 
     function openMessageModal(number) {
@@ -260,15 +340,12 @@
         document.getElementById("groupModal").style.display = "none";
     }
 
-    // Security Check Functions
     function isValidName(name) {
-        // සිංහල අකුරු හෝ සාමාන්‍ය ඉංග්‍රීසි අකුරු තියෙනවාදැයි පරීක්ෂා කරයි (අවම අකුරු 2ක්)
         const nameRegex = /^[a-zA-Z\s\u0D80-\u0DFF]{2,50}$/;
         return nameRegex.test(name);
     }
 
     function isValidEpf(epf) {
-        // ඉලක්කම් 4ක් පමණක් තිබේදැයි පරීක්ෂා කරයි
         const epfRegex = /^\d{4}$/;
         return epfRegex.test(epf);
     }
@@ -278,7 +355,7 @@
         const epf = document.getElementById("userEpf").value.trim();
 
         if (!isValidName(name)) {
-            alert("කරුණාකර නිවැරදි නමක් ඇතුළත් කරන්න (අකුරු පමණක් භාවිතා කරන්න).");
+            alert("කරුණාකර නිවැරදි නමක් ඇතුළත් කරන්න.");
             return;
         }
 
@@ -287,7 +364,7 @@
             return;
         }
 
-        const message = encodeURIComponent(`*Name: ${nameF}*\n*EPF: ${epf}*`);
+        const message = encodeURIComponent(`*Name: ${name}*\n*EPF: ${epf}*`);
         window.open(`https://wa.me/${currentNumber}?text=${message}`, '_blank');
         closeModal();
     }
@@ -304,11 +381,13 @@
             window.open("https://chat.whatsapp.com/Dmh1QSRBlA9GxZuxqj9du0", '_blank');
             closeModal();
         } else {
-            alert("මෙම EPF අංකය අනුමත කර නැත! කරුණාකර නිවැරදි අංකය ඇතුළත් කරන්න.");
+            alert("මෙම EPF අංකය අනුමත කර නැත!");
         }
     }
 
     updateData();
+
+    const message = encodeURIComponent(`*Name: ${name}*\n*EPF: ${epf}*`); // nameF වෙනුවට name ලෙස භාවිතා කරන්න
 </script>
 
 </body>
