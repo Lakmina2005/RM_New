@@ -10,8 +10,6 @@
         input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box; }
         button { width: 100%; padding: 12px; border-radius: 8px; border: none; background: #38bdf8; color: #0f172a; font-weight: bold; cursor: pointer; transition: 0.3s; }
         button:hover { background: #0ea5e9; box-shadow: 0 0 15px #38bdf8; }
-        
-        /* Signup කොටස මුලින්ම සඟවා තැබීම */
         #signupSection { display: none; }
         .error { color: #f87171; font-size: 14px; margin-bottom: 10px; }
     </style>
@@ -29,7 +27,7 @@
 
     <div id="signupSection">
         <h3 style="color: #fbbf24;">ලියාපදිංචි වන්න</h3>
-        <p style="font-size: 13px;">සමාවන්න ඔබ අපහා ලියාපදිංචි වී නොමැත. කරුණාකර ඔබගේ නම ඇතුළත් කරන්න… ( පැය 24ක් ඇතුලත ඔබට කෙටි පනිවිඩයක් ලැබෙනු ඇත)</p>
+        <p style="font-size: 13px;">සමාවන්න ඔබ අපහා ලියාපදිංචි වී නොමැත. කරුණාකර ඔබගේ නම ඇතුළත් කරන්න…</p>
         <input type="text" id="newName" placeholder="ඔබේ නම">
         <input type="text" id="newEpf" placeholder="EPF අංකය">
         <button onclick="sendToWhatsApp()" style="background: #fbbf24;">විස්තර යවන්න</button>
@@ -39,60 +37,51 @@
 </div>
 
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzE6xOLixt8hEcKBSTk64cWVA7jDXO3UXdkbZL8BOnL8FrvdTHx7O6hmJa03AYdyB4wkw/exec'; // ඔයාගේ URL එක මෙතනට දාන්න
-
-function saveLog(epf) {
-    let now = new Date();
-    let timeStr = now.getFullYear() + "_" + (now.getMonth() + 1) + "_" + now.getDate() + " / " + now.toLocaleTimeString();
-    
-    let data = { epf: epf, ip: userIP, time: timeStr };
-
-    // Google Sheet එකට දත්ත යැවීම
-    fetch(scriptURL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-    });
-
-    // පස්සේ බලන්න ලෝකල් එකෙත් සේව් කරමු
-    let logs = JSON.parse(localStorage.getItem("rmLogs") || "[]");
-    logs.unshift(data);
-    localStorage.setItem("rmLogs", JSON.stringify(logs));
-}
-
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzE6xOLixt8hEcKBSTk64cWVA7jDXO3UXdkbZL8BOnL8FrvdTHx7O6hmJa03AYdyB4wkw/exec';
     const validEPF = ["4627", "4273", "4888", "2976", "4599", "0593", "2645", "2745", "2586", "4828", "4669", "3395", "4586", "4608", "4762", "4836", "3321", "2599", "3319", "4746", "4741", "2562"];
+    
+    let userIP = "Checking...";
+
+    // IP එක හොයාගැනීම
+    fetch('https://api.ipify.org?format=json')
+        .then(res => res.json())
+        .then(data => userIP = data.ip)
+        .catch(() => userIP = "Unknown");
 
     function checkEPF() {
         let input = document.getElementById("epfInput").value.trim();
-        let loginSection = document.getElementById("loginSection");
-        let signupSection = document.getElementById("signupSection");
+        if (input === "") return;
+
+        // දත්ත Google Sheet එකට යැවීමට මෙතනදී call කරනවා
+        saveLog(input);
 
         if (validEPF.includes(input)) {
-            // හරි නම් 1.html වෙත යයි
             window.location.href = "1.html";
         } else {
-            // වැරදි නම් ලොගින් කොටස සඟවා සයිනප් කොටස පෙන්වයි
-            loginSection.style.display = "none";
-            signupSection.style.display = "block";
-            document.getElementById("newEpf").value = input; // වැරදි අංකය auto-fill වෙයි
+            document.getElementById("loginSection").style.display = "none";
+            document.getElementById("signupSection").style.display = "block";
+            document.getElementById("newEpf").value = input;
         }
+    }
+
+    function saveLog(epf) {
+        let now = new Date();
+        let timeStr = now.toLocaleString();
+        let data = { epf: epf, ip: userIP, time: timeStr };
+
+        fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
     }
 
     function sendToWhatsApp() {
         let name = document.getElementById("newName").value;
         let epf = document.getElementById("newEpf").value;
-        let phone = "94788637885";
-
-        if (name === "" || epf === "") {
-            alert("කරුණාකර සියලු විස්තර පුරවන්න.");
-            return;
-        }
-
-        let message = `*_~RM Team 2~_ නව ලියාපදිංචියක්*:%0A*නම:* ${name}%0A*EPF අංකය:* ${epf}`;
-        let whatsappURL = `https://wa.me/${phone}?text=${message}`;
-
-        window.open(whatsappURL, '_blank');
+        if (name === "" || epf === "") { alert("විස්තර පුරවන්න."); return; }
+        window.open(`https://wa.me/94788637885?text=*_~RM Team 2~_ නව ලියාපදිංචියක්*:%0A*නම:* ${name}%0A*EPF:* ${epf}`, '_blank');
     }
 </script>
 
