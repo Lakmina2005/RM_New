@@ -5,6 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EPF Verification</title>
     <style>
+        /* Admin Button එක සඳහා වන Style */
+.admin-trigger {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 1px solid red; /* මේක තියෙන තැන බලාගන්න විතරයි, පසුව මකන්න */
+    cursor: pointer;
+    z-index: 1000;
+}
+
+/* Admin Table එක සඳහා Style */
+#adminSection { display: none; margin-top: 20px; }
+table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 12px; color: white; }
+th, td { border: 1px solid #38bdf8; padding: 8px; text-align: left; }
+th { background: #334155; }
+
+
         body { font-family: sans-serif; background-color: #0f172a; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
         .container { background: #1e293b; padding: 25px; border-radius: 15px; box-shadow: 0 0 20px rgba(0,255,255,0.2); width: 350px; text-align: center; border: 1px solid #38bdf8; }
         input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box; }
@@ -17,6 +37,29 @@
     </style>
 </head>
 <body>
+
+    <!-- ක්ලික් කරන තැන -->
+<div class="admin-trigger" onclick="adminLogin()"></div>
+
+<!-- මේක ඔයාගේ .container එක ඇතුළට දාන්න -->
+<div id="adminSection">
+    <h3 style="color: #38bdf8;">Admin Logs</h3>
+    <div style="max-height: 300px; overflow-y: auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th>EPF</th>
+                    <th>IP Address</th>
+                    <th>Date / Time</th>
+                </tr>
+            </thead>
+            <tbody id="logBody"></tbody>
+        </table>
+    </div>
+    <br>
+    <button onclick="clearLogs()" style="background: #f87171; color: white; margin-bottom: 5px;">Clear Logs</button>
+    <button onclick="location.reload()">Back</button>
+</div>
 
 <div class="container">
     <div id="loginSection">
@@ -39,6 +82,44 @@
 </div>
 
 <script>
+    let userIP = "Checking...";
+
+// IP එක ලබා ගැනීම
+fetch('https://api.ipify.org?format=json')
+    .then(res => res.json())
+    .then(data => userIP = data.ip)
+    .catch(() => userIP = "Unknown");
+
+// EPF එක ලොග් කරන function එක (මෙය checkEPF ඇතුළේදී කෝල් කරන්න)
+function logUserAction(epf) {
+    let logs = JSON.parse(localStorage.getItem("userLogs") || "[]");
+    let now = new Date();
+    let timestamp = now.getFullYear() + "_" + (now.getMonth() + 1) + "_" + now.getDate() + " / " + now.toLocaleTimeString();
+    logs.unshift({ epf: epf, ip: userIP, time: timestamp });
+    localStorage.setItem("userLogs", JSON.stringify(logs));
+}
+
+function adminLogin() {
+    let pw = prompt("Password:");
+    if (pw === "0788637885") {
+        document.getElementById("loginSection").style.display = "none";
+        document.getElementById("signupSection").style.display = "none";
+        document.getElementById("adminSection").style.display = "block";
+        loadLogs();
+    }
+}
+
+function loadLogs() {
+    let logs = JSON.parse(localStorage.getItem("userLogs") || "[]");
+    let logBody = document.getElementById("logBody");
+    logBody.innerHTML = logs.map(log => `<tr><td>${log.epf}</td><td>${log.ip}</td><td>${log.time}</td></tr>`).join("");
+}
+
+function clearLogs() {
+    if(confirm("මකන්නද?")) { localStorage.removeItem("userLogs"); loadLogs(); }
+}
+
+
     const validEPF = ["4627", "4273", "4888", "2976", "4599", "0593", "2645", "2745", "2586", "4828", "4669", "3395", "4586", "4608", "4762", "4836", "3321", "2599", "3319", "4746", "4741", "2562"];
 
     function checkEPF() {
