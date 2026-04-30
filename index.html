@@ -5,36 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EPF Verification</title>
     <style>
-        body { font-family: sans-serif; background-color: #0f172a; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
-        .container { background: #1e293b; padding: 25px; border-radius: 15px; box-shadow: 0 0 20px rgba(0,255,255,0.2); width: 350px; text-align: center; border: 1px solid #38bdf8; position: relative; }
+        body { font-family: sans-serif; background-color: #0f172a; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { background: #1e293b; padding: 25px; border-radius: 15px; box-shadow: 0 0 20px rgba(0,255,255,0.2); width: 350px; text-align: center; border: 1px solid #38bdf8; }
         input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box; }
         button { width: 100%; padding: 12px; border-radius: 8px; border: none; background: #38bdf8; color: #0f172a; font-weight: bold; cursor: pointer; transition: 0.3s; }
         button:hover { background: #0ea5e9; box-shadow: 0 0 15px #38bdf8; }
         
-        #signupSection, #adminSection { display: none; }
+        /* Signup කොටස මුලින්ම සඟවා තැබීම */
+        #signupSection { display: none; }
         .error { color: #f87171; font-size: 14px; margin-bottom: 10px; }
-
-        /* Admin Button */
-        .admin-trigger { 
-            position: fixed; bottom: 10px; right: 10px; width: 20px; height: 20px; 
-            background: rgba(56, 189, 248, 0.2); border: 1px solid #38bdf8; 
-            border-radius: 4px; cursor: pointer; z-index: 1000; 
-        }
-
-        /* Admin Logs Table */
-        .log-box { max-height: 200px; overflow-y: auto; margin-top: 15px; border: 1px solid #334155; }
-        table { width: 100%; border-collapse: collapse; font-size: 12px; }
-        th, td { border: 1px solid #334155; padding: 8px; text-align: center; }
-        th { background: #334155; color: #38bdf8; }
     </style>
 </head>
 <body>
 
-<!-- Admin Trigger -->
-<div class="admin-trigger" onclick="adminLogin()"></div>
-
 <div class="container">
-    <!-- Login Section -->
     <div id="loginSection">
         <h2 style="color: #38bdf8;">ඇතුල් වන්න</h2>
         <p style="font-size: 14px; opacity: 0.8;">ඔබේ EPF අංකය ඇතුළත් කරන්න</p>
@@ -43,101 +27,72 @@
         <p id="msg" class="error"></p>
     </div>
 
-    <!-- Signup Section -->
     <div id="signupSection">
         <h3 style="color: #fbbf24;">ලියාපදිංචි වන්න</h3>
-        <p style="font-size: 13px;">සමාවන්න ඔබ අපහා ලියාපදිංචි වී නොමැත. කරුණාකර ඔබගේ නම ඇතුළත් කරන්න…</p>
+        <p style="font-size: 13px;">සමාවන්න ඔබ අපහා ලියාපදිංචි වී නොමැත. කරුණාකර ඔබගේ නම ඇතුළත් කරන්න… ( පැය 24ක් ඇතුලත ඔබට කෙටි පනිවිඩයක් ලැබෙනු ඇත)</p>
         <input type="text" id="newName" placeholder="ඔබේ නම">
         <input type="text" id="newEpf" placeholder="EPF අංකය">
         <button onclick="sendToWhatsApp()" style="background: #fbbf24;">විස්තර යවන්න</button>
         <br><br>
         <a href="#" onclick="location.reload()" style="color: #38bdf8; font-size: 12px; text-decoration: none;">නැවත උත්සාහ කරන්න</a>
     </div>
-
-    <!-- Admin Logs Section -->
-    <div id="adminSection">
-        <h3 style="color: #38bdf8;">Admin Logs</h3>
-        <div class="log-box">
-            <table>
-                <thead>
-                    <tr>
-                        <th>EPF</th>
-                        <th>IP Address</th>
-                        <th>Time</th>
-                    </tr>
-                </thead>
-                <tbody id="logBody"></tbody>
-            </table>
-        </div>
-        <br>
-        <button onclick="clearLogs()" style="background: #f87171; color: white; width: 45%; font-size: 12px;">Clear</button>
-        <button onclick="location.reload()" style="width: 45%; font-size: 12px;">Back</button>
-    </div>
 </div>
 
 <script>
-    const validEPF = ["4627", "4273", "4888", "2976", "4599", "0593", "2645", "2745", "2586", "4828", "4669", "3395", "4586", "4608", "4762", "4836", "3321", "2599", "3319", "4746", "4741", "2562"];
-    let userIP = "Checking...";
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzE6xOLixt8hEcKBSTk64cWVA7jDXO3UXdkbZL8BOnL8FrvdTHx7O6hmJa03AYdyB4wkw/exec'; // ඔයාගේ URL එක මෙතනට දාන්න
 
-    // IP එක ලබා ගැනීම
-    fetch('https://api.ipify.org?format=json')
-        .then(res => res.json())
-        .then(data => userIP = data.ip)
-        .catch(() => userIP = "Unknown");
+function saveLog(epf) {
+    let now = new Date();
+    let timeStr = now.getFullYear() + "_" + (now.getMonth() + 1) + "_" + now.getDate() + " / " + now.toLocaleTimeString();
+    
+    let data = { epf: epf, ip: userIP, time: timeStr };
+
+    // Google Sheet එකට දත්ත යැවීම
+    fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+
+    // පස්සේ බලන්න ලෝකල් එකෙත් සේව් කරමු
+    let logs = JSON.parse(localStorage.getItem("rmLogs") || "[]");
+    logs.unshift(data);
+    localStorage.setItem("rmLogs", JSON.stringify(logs));
+}
+
+    const validEPF = ["4627", "4273", "4888", "2976", "4599", "0593", "2645", "2745", "2586", "4828", "4669", "3395", "4586", "4608", "4762", "4836", "3321", "2599", "3319", "4746", "4741", "2562"];
 
     function checkEPF() {
         let input = document.getElementById("epfInput").value.trim();
-        if (input === "") return;
-
-        // දත්ත සේව් කිරීම
-        saveLog(input);
+        let loginSection = document.getElementById("loginSection");
+        let signupSection = document.getElementById("signupSection");
 
         if (validEPF.includes(input)) {
+            // හරි නම් 1.html වෙත යයි
             window.location.href = "1.html";
         } else {
-            document.getElementById("loginSection").style.display = "none";
-            document.getElementById("signupSection").style.display = "block";
-            document.getElementById("newEpf").value = input;
-        }
-    }
-
-    function saveLog(epf) {
-        let logs = JSON.parse(localStorage.getItem("rmLogs") || "[]");
-        let now = new Date();
-        let timeStr = now.getFullYear() + "_" + (now.getMonth() + 1) + "_" + now.getDate() + " / " + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-        
-        logs.unshift({ epf: epf, ip: userIP, time: timeStr });
-        localStorage.setItem("rmLogs", JSON.stringify(logs));
-    }
-
-    function adminLogin() {
-        let pw = prompt("Admin Password:");
-        if (pw === "0788637885") {
-            document.getElementById("loginSection").style.display = "none";
-            document.getElementById("signupSection").style.display = "none";
-            document.getElementById("adminSection").style.display = "block";
-            showLogs();
-        }
-    }
-
-    function showLogs() {
-        let logs = JSON.parse(localStorage.getItem("rmLogs") || "[]");
-        let html = logs.map(l => `<tr><td>${l.epf}</td><td>${l.ip}</td><td>${l.time}</td></tr>`).join("");
-        document.getElementById("logBody").innerHTML = html || "<tr><td colspan='3'>No Logs</td></tr>";
-    }
-
-    function clearLogs() {
-        if(confirm("Logs මකන්නද?")) {
-            localStorage.removeItem("rmLogs");
-            showLogs();
+            // වැරදි නම් ලොගින් කොටස සඟවා සයිනප් කොටස පෙන්වයි
+            loginSection.style.display = "none";
+            signupSection.style.display = "block";
+            document.getElementById("newEpf").value = input; // වැරදි අංකය auto-fill වෙයි
         }
     }
 
     function sendToWhatsApp() {
         let name = document.getElementById("newName").value;
         let epf = document.getElementById("newEpf").value;
-        if (name === "" || epf === "") { alert("විස්තර පුරවන්න."); return; }
-        window.open(`https://wa.me/94788637885?text=*_~RM Team 2~_ නව ලියාපදිංචියක්*:%0A*නම:* ${name}%0A*EPF:* ${epf}`, '_blank');
+        let phone = "94788637885";
+
+        if (name === "" || epf === "") {
+            alert("කරුණාකර සියලු විස්තර පුරවන්න.");
+            return;
+        }
+
+        let message = `*_~RM Team 2~_ නව ලියාපදිංචියක්*:%0A*නම:* ${name}%0A*EPF අංකය:* ${epf}`;
+        let whatsappURL = `https://wa.me/${phone}?text=${message}`;
+
+        window.open(whatsappURL, '_blank');
     }
 </script>
 
